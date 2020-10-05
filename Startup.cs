@@ -23,6 +23,16 @@ namespace TodoApi
             services.AddDbContext<TodoContext>(opt =>
                 opt.UseInMemoryDatabase("TodoList"));
             services.AddControllers();
+          
+            ervices.AddCors()
+                // Add useful interface for accessing the HttpContext outside a controller.
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddSwagger();
+
+            services.AddHealthChecks(Configuration);
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
